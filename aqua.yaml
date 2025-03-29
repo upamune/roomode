@@ -1,0 +1,22 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/aquaproj/aqua/main/json-schema/aqua-yaml.json
+# aqua - Declarative CLI Version Manager
+# https://aquaproj.github.io/
+checksum:
+  enabled: true
+  require_checksum: true
+  supported_envs:
+  - windows/amd64
+  - darwin/amd64
+  - darwin/arm64
+  - linux/amd64
+  - linux/arm64
+registries:
+- type: standard
+  ref: v4.333.1 # renovate: depName=aquaproj/aqua-registry
+packages:
+- name: golang/go@go1.24.1
+- name: suzuki-shunsuke/pinact@v2.2.1
+- name: mgechev/revive@v1.7.0
+- name: golang/tools/goimports@v0.31.0
+- name: goreleaser/goreleaser@v2.8.1

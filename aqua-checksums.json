@@ -1,0 +1,104 @@
+{
+  "checksums": [
+    {
+      "id": "github_release/github.com/goreleaser/goreleaser/v2.8.1/goreleaser_Darwin_all.tar.gz",
+      "checksum": "B72908A129ABC227247FD9BD706F160F4AE9196BB351FC78D6F774C560337183",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/goreleaser/goreleaser/v2.8.1/goreleaser_Linux_arm64.tar.gz",
+      "checksum": "9D4A8AA6B95A1390ECE6B55F62F53BDF041440A7E6EF639E7375B0E95284C2AE",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/goreleaser/goreleaser/v2.8.1/goreleaser_Linux_x86_64.tar.gz",
+      "checksum": "76A456F7E9B3D8644638D804D0FCDA2F8557858AF9B116D1A30B1AAA1D6A1EBC",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/goreleaser/goreleaser/v2.8.1/goreleaser_Windows_x86_64.zip",
+      "checksum": "EAF4E90BD9A324F9D9245F492547D6EA4A80C4A0DCE24969682032D9AFC9A20D",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/mgechev/revive/v1.7.0/revive_darwin_amd64.tar.gz",
+      "checksum": "25611279F78C7D84EFDF231051D90DE739B91E02133E4F194C0B02E6EBB36BB0",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/mgechev/revive/v1.7.0/revive_darwin_arm64.tar.gz",
+      "checksum": "C03D0FEFC4F355513C861FA900585DB491B37CF131743A479E11C1233410A864",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/mgechev/revive/v1.7.0/revive_linux_amd64.tar.gz",
+      "checksum": "913F2B5DCF3096BBAA6BEC2E43B420986E68FBA7CD29F0502FF3018E11C01E31",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/mgechev/revive/v1.7.0/revive_linux_arm64.tar.gz",
+      "checksum": "F8867D694B2FA11AE795ED27AD1A91D8B27666186131F28602B4DD9971497A4A",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/mgechev/revive/v1.7.0/revive_windows_amd64.tar.gz",
+      "checksum": "19DA6B274D49D41137F9C4DBADB4FFCD0509D7E293079077A02957058F006E9F",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/suzuki-shunsuke/pinact/v2.2.1/pinact_darwin_amd64.tar.gz",
+      "checksum": "77BDC618826B35C55EC95B04BBE5CE849739416930BE4EE083EBFF6E0E2764E3",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/suzuki-shunsuke/pinact/v2.2.1/pinact_darwin_arm64.tar.gz",
+      "checksum": "C31D3BA6C51D44461E4DFEB27B9A93436C7F708DA7EF2EEEE1E01B90AE7FD45E",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/suzuki-shunsuke/pinact/v2.2.1/pinact_linux_amd64.tar.gz",
+      "checksum": "30DA95AE20A23940E8F63D7D7EE58C79EBBDE25EE60D0D934E6964A0E4C95C28",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/suzuki-shunsuke/pinact/v2.2.1/pinact_linux_arm64.tar.gz",
+      "checksum": "414735FDE9F79395B246EA17347B8E7D2DA1A49CDA9ED45D72E2EE889A0320DB",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "github_release/github.com/suzuki-shunsuke/pinact/v2.2.1/pinact_windows_amd64.zip",
+      "checksum": "C9C647C28094FDE48E4E73EC9F56D8D60B6245D33A78FF211DEA1D3C4F6DF0C6",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/golang.org/dl/go1.24.1.darwin-amd64.tar.gz",
+      "checksum": "ADDBFCE2056744962E2D7436313AB93486660CF7A2E066D171B9D6F2DA7C7ABE",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/golang.org/dl/go1.24.1.darwin-arm64.tar.gz",
+      "checksum": "295581B5619ACC92F5106E5BCB05C51869337EB19742FDFA6C8346C18E78FF88",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/golang.org/dl/go1.24.1.linux-amd64.tar.gz",
+      "checksum": "CB2396BAE64183CDCCF81A9A6DF0AEA3BCE9511FC21469FB89A0C00470088073",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/golang.org/dl/go1.24.1.linux-arm64.tar.gz",
+      "checksum": "8DF5750FFC0281017FB6070FBA450F5D22B600A02081DCEEF47966FFAF36A3AF",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "http/golang.org/dl/go1.24.1.windows-amd64.zip",
+      "checksum": "95666B551453209A2B8869D29D177285FF9573AF10F085D961D7AE5440F645CE",
+      "algorithm": "sha256"
+    },
+    {
+      "id": "registries/github_content/github.com/aquaproj/aqua-registry/v4.333.1/registry.yaml",
+      "checksum": "9DBB73AF6D587E7696230A00BF9AD1A4D1B62512D5C179D55A5B471F332FF52E",
+      "algorithm": "sha256"
+    }
+  ]
+}
