@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"bufio"
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"os"
@@ -9,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/charmbracelet/log"
+	"gopkg.in/yaml.v3"
 
 	"github.com/upamune/roomode/internal/fileutil"
 )
@@ -126,84 +128,90 @@ func (cmd *ImportCmd) Run() error {
 
 // GenerateModeMarkdown creates markdown content with frontmatter from an imported mode
 func GenerateModeMarkdown(mode ImportedMode) (string, error) {
-	var sb strings.Builder
+	// Create frontmatter data structure
+	frontmatterData := map[string]interface{}{
+		"name":          mode.Name,
+		"roleDefinition": mode.RoleDefinition,
+	}
 
-	// Start frontmatter
-	sb.WriteString("---\n")
-	sb.WriteString(fmt.Sprintf("name: %s\n", mode.Name))
-
-	// Handle groups
-	sb.WriteString("groups:\n")
+	// Process groups to ensure proper YAML formatting
+	processedGroups := make([]interface{}, 0, len(mode.Groups))
 	for _, groupInterface := range mode.Groups {
 		switch group := groupInterface.(type) {
 		case string:
 			// Simple string group
-			sb.WriteString(fmt.Sprintf("  - %s\n", group))
-		case map[string]interface{}:
-			// Handle map representation of a group
-			name, hasName := group["Name"].(string)
-			if !hasName {
-				name, hasName = group["name"].(string)
-			}
-
-			if !hasName {
-				// Fallback if we can't find a name
-				sb.WriteString(fmt.Sprintf("  - %v\n", groupInterface))
-				continue
-			}
-
-			// Check for options
-			options, hasOptions := group["Options"].(map[string]interface{})
-			if !hasOptions {
-				options, hasOptions = group["options"].(map[string]interface{})
-			}
-
-			if !hasOptions || len(options) == 0 {
-				// Simple group entry
-				sb.WriteString(fmt.Sprintf("  - %s\n", name))
+			processedGroups = append(processedGroups, group)
+		case []interface{}:
+			// Array format [string, options]
+			if len(group) == 2 {
+				name, ok := group[0].(string)
+				if ok {
+					switch options := group[1].(type) {
+					case map[string]interface{}:
+						// Convert array format to map format
+						groupMap := map[string]interface{}{
+							name: options,
+						}
+						processedGroups = append(processedGroups, groupMap)
+					case map[interface{}]interface{}:
+						// Convert interface{} keys to string keys
+						stringOptions := make(map[string]interface{})
+						for k, v := range options {
+							if keyStr, ok := k.(string); ok {
+								stringOptions[keyStr] = v
+							}
+						}
+						groupMap := map[string]interface{}{
+							name: stringOptions,
+						}
+						processedGroups = append(processedGroups, groupMap)
+					default:
+						// Just add the name as a simple string
+						processedGroups = append(processedGroups, name)
+					}
+				} else {
+					// Just add as is if not properly structured
+					processedGroups = append(processedGroups, groupInterface)
+				}
 			} else {
-				// Complex group entry with options
-				sb.WriteString(fmt.Sprintf("  - [%s, {", name))
-
-				first := true
-				if fileRegex, ok := options["FileRegex"]; ok && fileRegex != nil {
-					sb.WriteString(fmt.Sprintf("fileRegex: \"%v\"", fileRegex))
-					first = false
-				} else if fileRegex, ok := options["fileRegex"]; ok && fileRegex != nil {
-					sb.WriteString(fmt.Sprintf("fileRegex: \"%v\"", fileRegex))
-					first = false
-				}
-
-				if description, ok := options["Description"]; ok && description != nil {
-					if !first {
-						sb.WriteString(", ")
-					}
-					sb.WriteString(fmt.Sprintf("description: \"%v\"", description))
-				} else if description, ok := options["description"]; ok && description != nil {
-					if !first {
-						sb.WriteString(", ")
-					}
-					sb.WriteString(fmt.Sprintf("description: \"%v\"", description))
-				}
-
-				sb.WriteString("}]\n")
+				// Just add as is if not properly structured
+				processedGroups = append(processedGroups, groupInterface)
 			}
+		case map[string]interface{}:
+			// Map format - already structured correctly
+			processedGroups = append(processedGroups, group)
 		default:
-			// Just convert to string as fallback
-			sb.WriteString(fmt.Sprintf("  - %v\n", groupInterface))
+			// Just add as is for any other type
+			processedGroups = append(processedGroups, groupInterface)
 		}
 	}
 
-	// Add role definition to frontmatter
-	sb.WriteString(fmt.Sprintf("roleDefinition: |\n  %s\n", strings.ReplaceAll(mode.RoleDefinition, "\n", "\n  ")))
+	// Add processed groups to frontmatter
+	frontmatterData["groups"] = processedGroups
 
+	// Generate YAML frontmatter manually since the frontmatter package doesn't provide a Marshal function
+	var buf bytes.Buffer
+	
+	// Start frontmatter
+	buf.WriteString("---\n")
+	
+	// Marshal to YAML
+	yamlData, err := yaml.Marshal(frontmatterData)
+	if err != nil {
+		return "", fmt.Errorf("failed to marshal frontmatter: %w", err)
+	}
+	
+	// Write YAML content
+	buf.Write(yamlData)
+	
 	// End frontmatter
-	sb.WriteString("---\n\n")
+	buf.WriteString("---\n")
 
 	// Add custom instructions to the body if present
 	if mode.CustomInstructions != nil {
-		sb.WriteString(*mode.CustomInstructions)
+		buf.WriteString("\n")
+		buf.WriteString(*mode.CustomInstructions)
 	}
 
-	return sb.String(), nil
+	return buf.String(), nil
 }
