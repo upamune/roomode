@@ -7,6 +7,7 @@ require (
 	github.com/alecthomas/kong v1.9.0
 	github.com/charmbracelet/huh v0.6.0
 	github.com/charmbracelet/log v0.4.1
+	gopkg.in/yaml.v3 v3.0.1
 )
 
 require (
