@@ -86,3 +86,5 @@ implementation.md
 
 # Added by goreleaser init:
 dist/
+
+coverage.txt

@@ -38,7 +38,7 @@ build:
 
 # Test
 test:
-	$(GO) test -v ./...
+	$(GO) test -coverprofile=coverage.txt -v ./...
 
 # fmt
 fmt:
