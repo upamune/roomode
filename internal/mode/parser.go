@@ -55,6 +55,7 @@ func ParseModeFile(filePath string) (*Config, error) {
 		RoleDefinition:     metadata.RoleDefinition,
 		CustomInstructions: customInstructions,
 		FilePath:           absPath,
+		Source:             metadata.Source,
 	}
 
 	return config, nil

@@ -69,9 +69,14 @@ func (cmd *ExportCmd) Run() error {
 		Groups             []interface{} `json:"groups"`
 		CustomInstructions *string       `json:"customInstructions,omitempty"`
 		RoleDefinition     string        `json:"roleDefinition"`
+		Source             string        `json:"source,omitempty"`
 	}
 
-	exportData := make([]ExportedMode, 0, len(validModes))
+	type ExportData struct {
+		CustomModes []ExportedMode `json:"customModes"`
+	}
+
+	modes := make([]ExportedMode, 0, len(validModes))
 	for _, m := range validModes {
 		// Convert ParsedGroupEntry to the expected format for TypeScript schema
 		formattedGroups := make([]interface{}, 0, len(m.GroupsParsed))
@@ -88,16 +93,20 @@ func (cmd *ExportCmd) Run() error {
 			}
 		}
 
-		exportData = append(exportData, ExportedMode{
+		modes = append(modes, ExportedMode{
 			Slug:               m.Slug,
 			Name:               m.Name,
 			Groups:             formattedGroups,
 			CustomInstructions: m.CustomInstructions,
 			RoleDefinition:     m.RoleDefinition,
+			Source:             m.Source,
 		})
 	}
 
-	// 6. Convert to JSON
+	// 6. Create the final export data structure and convert to JSON
+	exportData := ExportData{
+		CustomModes: modes,
+	}
 	jsonData, err := json.MarshalIndent(exportData, "", "  ")
 	if err != nil {
 		return fmt.Errorf("failed to marshal JSON: %w", err)
