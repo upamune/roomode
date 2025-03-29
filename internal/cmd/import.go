@@ -134,6 +134,11 @@ func GenerateModeMarkdown(mode ImportedMode) (string, error) {
 		"roleDefinition": mode.RoleDefinition,
 	}
 
+	// Add source if it exists
+	if mode.Source != "" {
+		frontmatterData["source"] = mode.Source
+	}
+
 	// Process groups to ensure proper YAML formatting
 	processedGroups := make([]interface{}, 0, len(mode.Groups))
 	for _, groupInterface := range mode.Groups {

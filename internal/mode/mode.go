@@ -15,6 +15,7 @@ type Metadata struct {
 	Name           string       `yaml:"name" json:"name"`
 	Groups         []GroupEntry `yaml:"groups" json:"groups"` // Requires custom parsing after initial parse
 	RoleDefinition string       `yaml:"roleDefinition" json:"roleDefinition"`
+	Source         string       `yaml:"source,omitempty" json:"source,omitempty"`
 }
 
 // Config represents the complete data for a custom mode
@@ -26,6 +27,7 @@ type Config struct {
 	RoleDefinition     string             // From frontmatter
 	CustomInstructions *string            // Content of the Markdown body (if not empty)
 	FilePath           string             // Path to the source Markdown file
+	Source             string             // Original source path from frontmatter
 }
 
 // ParsedGroupEntry represents a validated group entry
