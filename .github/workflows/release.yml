@@ -21,6 +21,8 @@ jobs:
         with:
           app-id: ${{ vars.APP_ID }}
           private-key: ${{ secrets.PRIVATE_KEY }}
+          owner: 'upamune'
+          repositories: 'homebrew-tap'
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@5fdedb94abba051217030cc86d4523cf3f02243d # v4.6.0
         with:
